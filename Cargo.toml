@@ -1,0 +1,22 @@
+[package]
+name = "clocksource"
+version = "1.0.0-alpha.0"
+authors = ["Brian Martin <brian@iop.systems>"]
+edition = "2024"
+description = "Library for times and durations with fixed-size representations"
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/iopsystems/clocksource"
+repository = "https://github.com/iopsystems/clocksource"
+readme = "README.md"
+keywords = ["time", "duration", "atomic", "clock", "timestamp"]
+categories = ["date-and-time"]
+rust-version = "1.85"
+
+[dependencies]
+time = "0.3.47"
+
+[target.'cfg(not(target_os = "windows"))'.dependencies]
+libc = "0.2.183"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3.9", features = ["ntdef", "profileapi", "sysinfoapi"] }
