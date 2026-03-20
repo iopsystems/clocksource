@@ -1,6 +1,6 @@
 [package]
 name = "clocksource"
-version = "1.0.0"
+version = "1.0.1-alpha.0"
 authors = ["Brian Martin <brian@iop.systems>"]
 edition = "2024"
 description = "Library for times and durations with fixed-size representations"
