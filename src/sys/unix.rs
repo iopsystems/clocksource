@@ -1,13 +1,19 @@
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 const CLOCK_MONOTONIC_COARSE: u32 = libc::CLOCK_MONOTONIC;
 
-#[cfg(not(any(target_os = "macos", target_os = "ios")))]
+#[cfg(target_os = "illumos")]
+const CLOCK_MONOTONIC_COARSE: i32 = libc::CLOCK_MONOTONIC;
+
+#[cfg(not(any(target_os = "macos", target_os = "ios", target_os = "illumos")))]
 const CLOCK_MONOTONIC_COARSE: i32 = libc::CLOCK_MONOTONIC_COARSE;
 
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 const CLOCK_REALTIME_COARSE: u32 = libc::CLOCK_REALTIME;
 
-#[cfg(not(any(target_os = "macos", target_os = "ios")))]
+#[cfg(target_os = "illumos")]
+const CLOCK_REALTIME_COARSE: i32 = libc::CLOCK_REALTIME;
+
+#[cfg(not(any(target_os = "macos", target_os = "ios", target_os = "illumos")))]
 const CLOCK_REALTIME_COARSE: i32 = libc::CLOCK_REALTIME_COARSE;
 
 pub fn read_clock(clock: i32) -> libc::timespec {
