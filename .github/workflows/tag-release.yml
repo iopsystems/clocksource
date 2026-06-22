@@ -14,8 +14,13 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    # Only run if the commit message starts with "release: v" (matches merge commit titles)
-    if: "startsWith(github.event.head_commit.message, 'release: v')"
+    # Run when a release PR lands on main. Use `contains` rather than
+    # `startsWith` so it matches both merge strategies:
+    #   - squash merge: message starts with "release: v1.0.1 (#5)"
+    #   - merge commit: message is "Merge pull request #5 ...\n\nrelease: v1.0.1"
+    # Dev-version bump commits ("chore: bump ...") don't contain "release: v",
+    # so they won't trigger this job.
+    if: "contains(github.event.head_commit.message, 'release: v')"
 
     steps:
       - uses: actions/checkout@v4
