@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-06-22
+
+### Fixed
+
+- illumos does not define `CLOCK_MONOTONIC_COARSE` and `CLOCK_REALTIME_COARSE`;
+  fall back to the precise clocks on illumos.
+
 ## [1.0.0] - 2026-03-20
 
 First release with changelog.
