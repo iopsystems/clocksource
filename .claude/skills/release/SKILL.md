@@ -66,9 +66,10 @@ Example: `/release minor`
 
 7. **Commit changes**:
 
-   **CRITICAL**: The commit message MUST start with `release: v` (no other words before the version).
-   The `tag-release.yml` workflow matches `startsWith(message, 'release: v')` on the merge commit.
-   When GitHub squash-merges a single-commit PR, the commit message becomes the merge commit message.
+   **CRITICAL**: The commit message MUST start with `release: v`.
+   When merging this PR to main, **you must squash-merge** so the merge commit message starts with `release: v`.
+   This is required for `tag-release.yml` to detect and trigger the release automation.
+   See CLAUDE.md for details on the release convention and why squash merge is required.
 
    ```bash
    git add Cargo.toml CHANGELOG.md
@@ -107,11 +108,15 @@ Example: `/release minor`
 
 ## After PR Merge
 
-When the PR is merged to main, the `tag-release.yml` workflow will:
+**⚠️ IMPORTANT: Squash-merge this PR when merging to main.** See CLAUDE.md for why this is required.
+
+When the PR is squash-merged to main, the `tag-release.yml` workflow will:
 1. Detect the version from `Cargo.toml`
 2. Create and push the git tag `vX.Y.Z`
 3. The `release.yml` workflow then runs CI and publishes to crates.io
 4. Create a commit bumping to next dev version (e.g., `0.0.2-alpha.0`)
+
+If you accidentally use a default merge commit, the automation won't trigger. See CLAUDE.md for the manual recovery steps.
 
 ## Troubleshooting
 
